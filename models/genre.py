@@ -10,14 +10,14 @@ class Genre(CRUDMixin, Base):
 
     movies = relationship("Movie", back_populates="genre")
 
-@validates("name")
-def validate_name(self, _, value):
-    cleaned = (value or "").strip()
-    if not cleaned:
-        raise ValueError("Genre name cannot be empty.")
-    if len(cleaned) > 80:
-        raise ValueError("Genre name must be 80 characters or less.")
-    return cleaned
+    @validates("name")
+    def validate_name(self, _, value):
+        cleaned = (value or "").strip()
+        if not cleaned:
+            raise ValueError("Genre name cannot be empty.")
+        if len(cleaned) > 80:
+            raise ValueError("Genre name must be 80 characters or less.")
+        return cleaned
 
-def __repr__(self):
-    return f"<Genre id={self.id} name={self.name!r}>"
+    def __repr__(self):
+        return f"<Genre id={self.id} name={self.name!r}>"

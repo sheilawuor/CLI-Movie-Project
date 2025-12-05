@@ -23,14 +23,14 @@ class Movie(CRUDMixin, Base):
         cascade="all, delete-orphan"
     )
 
-@validates("title")
-def validate_title(self, _, value):
-    cleaned = (value or "").strip()
-    if not cleaned:
-        raise ValueError("Title cannot be empty.")
-    if len(cleaned) > 200:
-        raise ValueError("Title must be 200 characters or less.")
-    return cleaned
+    @validates("title")
+    def validate_title(self, _, value):
+        cleaned = (value or "").strip()
+        if not cleaned:
+            raise ValueError("Title cannot be empty.")
+        if len(cleaned) > 200:
+            raise ValueError("Title must be 200 characters or less.")
+        return cleaned
 
-def __repr__(self):
-    return f"<Movie id={self.id} title={self.title!r} genre_id={self.genre_id}>"
+    def __repr__(self):
+        return f"<Movie id={self.id} title={self.title!r} genre_id={self.genre_id}>"
